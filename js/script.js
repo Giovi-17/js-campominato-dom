@@ -21,13 +21,12 @@ il software scopre tutte le bombe nascoste*/
 
 const play = document.getElementById("play");
 play.addEventListener("click", diffSelected);
-
+let scegli = document.querySelector(".scegli");
 const nascosto = document.getElementById("nascosto");
 
 let c = 0;
-let d = 0;
 
-let numBomb = 1;
+let numBomb = 2;
 let arrayBomb = [];
 let arrayNotBomb = [];
 let nVittoria;
@@ -60,19 +59,26 @@ function diffSelected() {
         }
 
         //Al click la scritta nell'h2 scompare
-        let scegli = document.querySelector(".scegli");
         scegli.classList.add("hidden");
 
         //Al click viene tolta la classe hidden e la griglia compare
-        
-        
         nascosto.classList.remove("hidden");
 
         const bigSquare = document.querySelector(".square-container");
         let bomb = genXBomb(numBomb, arrayBomb, 1, numDiff);
         console.log(arrayBomb);
         let squareDiff = dDiff(bigSquare, numDiff, diff);
-    }  
+    }
+
+    const finalGame = endGame();
+
+    if( ( finalGame = "win" ) || ( finalGame = "lose" ) ){
+
+        scegli.classList.remove("hidden");
+        nascosto.classList.add("hidden");
+        document.querySelector("#final-message").classList.add("hidden");
+        
+    }
         
 }
 
@@ -103,8 +109,8 @@ function dDiff(bigSquare, numDiff, diff){
 
 // quando clicco su una casella cambia colore di sfondo
 //e controlla se ho cliccato una casella con una bomba
-//in questo caso la casella si colora di rosso
-//altrimenti si colora di blu
+//in questo caso la casella si colora di rosso e il gioco finisce
+//altrimenti si colora di blu e non é piú cliccabile
 function sqSelected() {
 
     let esploso = false;
@@ -113,15 +119,24 @@ function sqSelected() {
 
     for( let i = 0; i < arrayBomb.length ; i++ ){
 
-        if(x === arrayBomb[i]){
+        if( !arrayNotBomb.includes(x) ){
 
-            esploso = true;
+            if(arrayBomb.includes(x)){
 
-        }else if(( x !== arrayBomb[i] ) && ( arrayNotBomb.length < nVittoria2 )){
-            arrayNotBomb.push(x);
+                esploso = true;
+                this.style.pointerEvents = "none";
+    
+            }else if(( !arrayBomb.includes(x) ) && ( arrayNotBomb.length < nVittoria2 )){
+                arrayNotBomb.push(x);
+                this.style.pointerEvents = "none";
+                console.log(arrayNotBomb);
+                
+            }else {
             
-        }else {
-        alert('Hai vinto, fine del gioco');
+                endGame("win");
+                noClick();
+    
+            }
 
         }
 
@@ -129,7 +144,9 @@ function sqSelected() {
 
     if( esploso ){
         this.classList.add("bomb");
-        alert('Sei esploso, fine del gioco');
+        endGame("lose");
+        noClick();
+
     }else{
         this.classList.add("selected");
     }
@@ -172,6 +189,51 @@ function genXBomb(numBomb, arrayBomb, min, max){
         let x = Math.floor(Math.random() * (max - min + 1) ) + min;
 
         arrayBomb.push(x);
+
+    }
+
+}
+
+//Finale del gioco
+//scritta di vittoria o sconfitta
+function endGame(winOrLose){
+
+    if( winOrLose === "win" ){
+        let final = document.querySelector("#final-message");
+        final.innerHTML= `
+
+            Hai vinto, fine del gioco
+
+        `;
+
+        final.classList.remove("hidden");
+
+    }else if( winOrLose === "lose" ){
+        let final = document.querySelector("#final-message");
+
+        final.innerHTML= `
+
+        Sei esploso, fine del gioco, 
+        hai azzeccato ${arrayNotBomb.length} tentativo/i
+
+        `;
+
+        final.classList.remove("hidden");
+        
+    }
+
+    return  winOrLose;
+
+};
+
+//A fine gioco nessuna cella é piú cliccabile
+function noClick(){
+
+    const cells = document.getElementsByClassName('square');
+    for(let i = 0; i < cells.length ;i++){
+
+        const thisCell = cells[i];
+        thisCell.style.pointerEvents = "none";
 
     }
 
