@@ -17,6 +17,10 @@
     color: white;
 }
 
+.bomb{
+    background-color: #dc143c;
+}
+
 select{
     margin: 10px;
 }
