@@ -69,16 +69,6 @@ function diffSelected() {
         console.log(arrayBomb);
         let squareDiff = dDiff(bigSquare, numDiff, diff);
     }
-
-    const finalGame = endGame();
-
-    if( ( finalGame = "win" ) || ( finalGame = "lose" ) ){
-
-        scegli.classList.remove("hidden");
-        nascosto.classList.add("hidden");
-        document.querySelector("#final-message").classList.add("hidden");
-        
-    }
         
 }
 
