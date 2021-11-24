@@ -1,0 +1,94 @@
+/* COMMON */
+.ms-button-gray{
+    background-color: lightgray;
+    color: black;
+}
+
+.ms-space-int{
+    margin: 0 5px;
+}
+
+.hidden{
+    display: none!important;
+}
+
+.selected{
+    background-color: #6495ed;
+    color: white;
+}
+
+select{
+    margin: 10px;
+}
+
+header a, main a{
+    text-decoration: none;
+    color: inherit;
+}
+
+header a:hover, main a:hover{
+    color: inherit;
+}
+
+/* HEADER */
+header{
+    height: 70px;
+    width: 100%;
+    background-color: white;
+    padding: 10px 0;
+}
+
+/* MAIN */
+main{
+    background-color: #7fffd4;
+    padding: 100px 0;
+}
+
+/* scritta */
+.scegli{
+    
+    height: 600px;
+    margin: 0;
+}
+
+/* big-square */
+.square-container{
+    height: 600px;
+    width: 600px;
+    border: 1px solid black;
+}
+
+.square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.square:hover{
+    cursor: pointer;
+}
+
+.square-easy{
+    height: calc( 100% / 10 );
+    width: calc( 100% / 10 );
+}
+
+.square-hard{
+    height: calc( 100% / 9 );
+    width: calc( 100% / 9 );
+}
+
+.square-crazy{
+    height: calc( 100% / 7 );
+    width: calc( 100% / 7 );
+}
+
+
+/* FOOTER */
+footer{
+    height: 70px;
+    width: 100%;
+    background-color: white;
+    padding: 10px 0;
+}
